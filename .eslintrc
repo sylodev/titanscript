@@ -1,0 +1,39 @@
+{
+  "extends": "standard-with-typescript",
+  "ignorePatterns": ["**/dist/*", "*.d.ts", "*.js"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/promise-function-async": "off", // extremely slow
+    "@typescript-eslint/no-floating-promises": "off", // extremely slow
+    "@typescript-eslint/no-misused-promises": "off", // extremely slow,
+    "@typescript-eslint/no-implied-eval": "off", // extremely slow
+    "import/no-duplicates": "off", // extremely slow and handled by alt + shift + o,
+    "@typescript-eslint/return-await": ["error", "in-try-catch"], // extremely slow and broken
+    "@typescript-eslint/restrict-template-expressions": "off", // seems to be broken
+    "@typescript-eslint/prefer-nullish-coalescing": "off", // seems to be broken
+    "@typescript-eslint/space-before-function-paren": "off", // handled by prettier
+    "@typescript-eslint/member-delimiter-style": "off", // handled by prettier
+    "@typescript-eslint/indent": "off", // handled by prettier
+    "@typescript-eslint/semi": "off", // handled by prettier
+    "comma-dangle": "off", // handled by prettier
+    "no-return-await": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
+    "@typescript-eslint/no-invalid-void-type": "off",
+    "@typescript-eslint/no-base-to-string": [
+      "error",
+      {
+        "ignoredTypeNames": ["boolean"]
+      }
+    ]
+  }
+}

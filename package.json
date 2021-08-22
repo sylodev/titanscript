@@ -1,0 +1,37 @@
+{
+  "name": "@ryanke/template",
+  "version": "0.0.1",
+  "repository": "https://github.com/sylv/template.git",
+  "author": "Ryan <ryan@sylver.me>",
+  "license": "MIT",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "template",
+    "typescript"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "prepack": "pnpm run build"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/node": "14",
+    "@typescript-eslint/eslint-plugin": "4.28.5",
+    "esbuild": "^0.12.16",
+    "esbuild-jest": "^0.5.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "2.23.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "jest": "^26",
+    "tsup": "^4.12.5",
+    "typescript": "^4.3.5"
+  }
+}
