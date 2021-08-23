@@ -1,0 +1,11 @@
+{
+    "name": "@sylo-digital/titanscript-parser",
+    "version": "1.0.0",
+    "repository": "https://github.com/sylo-digital/titanscript.git",
+    "author": "Ryan <ryan@sylver.me>",
+    "license": "GPL-3.0",
+    "main": "dist/index.js",
+    "engines": {
+        "node": "^16"
+    }
+}

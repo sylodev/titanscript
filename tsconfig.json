@@ -1,13 +1,15 @@
 {
-  "compilerOptions": {
-    "lib": ["es2020"],
-    "module": "commonjs",
-    "target": "es2020",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
+  "extends": "./tsconfig.base.json",
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/language-server"
+    },
+    {
+      "path": "./packages/parser"
+    },
+    {
+      "path": "./packages/vsc-extension"
+    }
+  ]
 }

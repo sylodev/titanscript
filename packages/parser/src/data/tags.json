@@ -1,0 +1,2953 @@
+[
+  {
+    "name": "and",
+    "description": "Returns \"true\" if all args are present, or \"false\" in any other circumstance. Cannot be used with {if}. Uses conditional parsing.",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "...",
+        "spread": true,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{and;; ;test}",
+        "output": "false"
+      },
+      {
+        "input": "{and;first;second}",
+        "output": "true"
+      },
+      {
+        "input": "{and;false;false}",
+        "output": "true",
+        "note": "Booleans are not parsed."
+      }
+    ]
+  },
+  {
+    "name": "args",
+    "description": "Access user-provided arguments.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "index",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "range",
+        "defaultValue": "1",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{args;1}",
+        "output": "arg1",
+        "note": "Input would be \"a!actionlabel arg1 arg2\"."
+      },
+      {
+        "input": "{args;2}",
+        "output": "arg2",
+        "note": "Input would be \"a!actionlabel arg1 arg2\"."
+      },
+      {
+        "input": "{args}",
+        "output": "arg1 arg2",
+        "note": "Input would be \"a!actionlabel arg1 arg2\"."
+      },
+      {
+        "input": "{args;2;2}",
+        "output": "arg2 arg3",
+        "note": "Input would be \"a!actionlabel arg1 arg2 arg3 arg4"
+      },
+      {
+        "input": "{args;2;infinity}",
+        "output": "arg2 arg3",
+        "note": "This would return all args at index 2 to infinity."
+      }
+    ]
+  },
+  {
+    "name": "catch",
+    "description": "When an error occurs in a child tag, we return the given message instead of the error.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "subtag(s)",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "message",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{catch;{throw;test};Something bad happened :c}",
+        "output": "Something bad happened :c"
+      },
+      {
+        "input": "{catch;{throw;test}}",
+        "output": "Something bad happened :c",
+        "note": "The default message is \"Something bad happened :c\""
+      }
+    ]
+  },
+  {
+    "name": "channel.awaitmessage",
+    "description": "Wait for a message in the channel. <author> will listen for only messages sent by that user. <timeout> is how long to wait for messages matching the filter before giving up and returning nothing.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "author",
+        "description": "will listen for only messages sent by that user.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "timeout",
+        "defaultValue": "30s",
+        "description": "how long to wait for messages matching the filter before giving up and returning nothing.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.awaitmessage;{user.id};60}",
+        "output": "A message I sent to test this tag."
+      },
+      {
+        "input": "{channel.awaitmessage;{user.id};5}",
+        "output": "",
+        "note": "When no message matching the given filters is sent, nothing is returned."
+      }
+    ]
+  },
+  {
+    "name": "channel.createdAt",
+    "description": "Returns the date the channel was created. \"exact\" is a boolean indicating whether to include hours and minutes.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours and minutes.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.createdAt;general}",
+        "output": "Jul 31, 2018"
+      },
+      {
+        "input": "{channel.createdAt;general;true}",
+        "output": "Jul 31, 2018, 9:19 PM"
+      }
+    ]
+  },
+  {
+    "name": "channel.id",
+    "description": "Gets the ID of the channel.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.id}",
+        "output": "357192331021254656"
+      },
+      {
+        "input": "{channel.id;general}",
+        "output": "396278579627032576"
+      }
+    ]
+  },
+  {
+    "name": "channel.lastMessageID",
+    "description": "Gets the ID of the last message in the channel.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.lastMessageID}",
+        "output": "520723523166011403"
+      }
+    ]
+  },
+  {
+    "name": "channel.mention",
+    "description": "Gets the #mention of the channel.",
+    "aliases": [
+      "channel"
+    ],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.mention}",
+        "output": "#general"
+      }
+    ]
+  },
+  {
+    "name": "channel.name",
+    "description": "Gets the name of the channel.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.name}",
+        "output": "general"
+      }
+    ]
+  },
+  {
+    "name": "channel.nsfw",
+    "description": "Whether or not the current channel is not safe for work.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.nsfw}",
+        "output": "false",
+        "note": "This assumes the channel is not marked as NSFW."
+      }
+    ]
+  },
+  {
+    "name": "channel.send",
+    "description": "Sends a message to the channel. ",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "content",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "returnId",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.send;Welcome to the thunder dome}",
+        "output": "",
+        "note": "\"Welcome to the thunder dome\" would be sent to the context channel."
+      },
+      {
+        "input": "{channel.send;what;{channel.id};true}",
+        "output": "532902719531515905",
+        "note": "If the third argument is \"true\", the ID of the created message will be returned."
+      },
+      {
+        "input": "{channel.send;ayyy;off-topic}",
+        "output": "",
+        "note": "This message would be sent to the #off-topic channel."
+      }
+    ]
+  },
+  {
+    "name": "channel.topic",
+    "description": "Gets the topic of the channel.",
+    "aliases": [],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.topic}",
+        "output": "Welcome to General",
+        "note": "This assumes the channel topic is set to \"Welcome to General\""
+      }
+    ]
+  },
+  {
+    "name": "channel.type",
+    "description": "Gets the type of the channel.",
+    "aliases": [
+      "channel.cleanType"
+    ],
+    "dependencies": [
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "channel",
+        "description": "The channel to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.type}",
+        "output": "text"
+      },
+      {
+        "input": "{channel.type;vc-1}",
+        "output": "voice"
+      }
+    ]
+  },
+  {
+    "name": "choose",
+    "description": "Returns a random argument. Uses conditional parsing.",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "...",
+        "spread": true,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{choose;a;b}",
+        "output": "a"
+      },
+      {
+        "input": "{choose;one;two;three;four}",
+        "output": "three"
+      },
+      {
+        "input": "{choose}",
+        "output": "",
+        "note": "If no arguments are given, nothing is returned."
+      }
+    ]
+  },
+  {
+    "name": "emoji.char",
+    "description": "Formats an emoji for Discord.",
+    "aliases": [
+      "emoji"
+    ],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "emoji",
+        "description": "The emoji to operate on. Can be an ID, name, markdown emoji or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{emoji.char;smile}",
+        "output": "😄"
+      }
+    ]
+  },
+  {
+    "name": "emoji.id",
+    "description": "Gets an emoji ID. For native emojis, this will return the emoji itself. For guild emojis, it returns the emojis ID.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "emoji",
+        "description": "The emoji to operate on. Can be an ID, name, markdown emoji or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{emoji.id;smile}",
+        "output": "😄"
+      },
+      {
+        "input": "{emoji.id;aguildemoji}",
+        "output": "538223757291028480"
+      }
+    ]
+  },
+  {
+    "name": "emoji.name",
+    "description": "Gets the name of an emoji. Query can be an emoji name, the emoji itself or a keyword.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "emoji",
+        "description": "The emoji to operate on. Can be an ID, name, markdown emoji or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{emoji.name;😄}",
+        "output": "smile"
+      }
+    ]
+  },
+  {
+    "name": "find",
+    "description": "Finds the pattern in the target. Supports regex. \n\nIf \"forceRegex\" is true, errors are thrown if we determine the pattern is unsafe instead of silently falling back to wildcard matching. \nIf you are using regex, \"forceRegex\" should always be on. The default is for backwards compatibility.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "target",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "pattern",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "group",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "flags",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "forceRegex",
+        "description": "true, errors are thrown if we determine the pattern is unsafe instead of silently falling back to wildcard matching.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{find;This is a test;test}",
+        "output": "test"
+      },
+      {
+        "input": "{find;fortnite;fort*}",
+        "output": "fortnite",
+        "note": "Wildcard matching"
+      },
+      {
+        "input": "{find;example phrase;test}",
+        "output": ""
+      },
+      {
+        "input": "{find;The date is 21-08-2020;([0-9]{1,2})(?:/|-)([0-9]{1,2})(?:/|-)([0-9]{2,4});3}",
+        "output": "2020",
+        "note": "Uses regex to match date formats."
+      },
+      {
+        "input": "{find;example;(x+x+)+y;1;gi;true}",
+        "output": "",
+        "note": "The tag would throw an error as \"(x+x+)+y\" is an unsafe regex pattern."
+      }
+    ]
+  },
+  {
+    "name": "get",
+    "description": "Gets a key from volatile storage.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "key",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{set;key;value} {get;key}",
+        "output": "value"
+      },
+      {
+        "input": "{get;non-existent-key}",
+        "output": "",
+        "note": "Unset keys return nothing."
+      }
+    ]
+  },
+  {
+    "name": "guild.channelCount",
+    "description": "Gets a total count of all the channels in the guild.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.channelCount}",
+        "output": "11"
+      }
+    ]
+  },
+  {
+    "name": "guild.createdAt",
+    "description": "Returns the date the guild was created. \"exact\" is a boolean indicating whether to include hours and minutes.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours and minutes.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{guild.createdAt}",
+        "output": "Jul 31, 2018"
+      },
+      {
+        "input": "{guild.createdAt;true}",
+        "output": "Jul 31, 2018, 9:19 PM"
+      }
+    ]
+  },
+  {
+    "name": "guild.defaultNotifications",
+    "description": "Gets the default notification level for the guild.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.defaultNotifications}",
+        "output": "Only @mentions",
+        "note": "Output can be either \"Only @mentions\" or \"All Messages\"."
+      }
+    ]
+  },
+  {
+    "name": "guild.icon",
+    "description": "Gets the guild icon hash. You probably want {guild.iconURL}!",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.icon}",
+        "output": "09a95ea8970f07636addbd6f3baaa6e4"
+      }
+    ]
+  },
+  {
+    "name": "guild.iconURL",
+    "description": "Gets the guild's icon URL.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.iconURL}",
+        "output": "https://cdn.discordapp.com/icons/345177567541723137/8e5eb93c35dae44f15c4efe2c4563918.png?size=256"
+      }
+    ]
+  },
+  {
+    "name": "guild.id",
+    "description": "Gets the guild ID.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.id}",
+        "output": "345177567541723137"
+      }
+    ]
+  },
+  {
+    "name": "guild.memberCount",
+    "description": "Gets the total number of members in the server.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.memberCount}",
+        "output": "69"
+      }
+    ]
+  },
+  {
+    "name": "guild.name",
+    "description": "Gets the name of the guild.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.name}",
+        "output": "My Server",
+        "note": "This assumes the name of the guild is \"My Server\""
+      }
+    ]
+  },
+  {
+    "name": "guild.ownerID",
+    "description": "Gets the ID of the owner.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.ownerID}",
+        "output": "111372124383428608"
+      },
+      {
+        "input": "{user.username;{guild.ownerID}}",
+        "output": "Sylver"
+      }
+    ]
+  },
+  {
+    "name": "guild.prefix",
+    "description": "Gets the guild prefix.",
+    "aliases": [],
+    "dependencies": [
+      "settings"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.prefix}",
+        "output": "a!"
+      }
+    ]
+  },
+  {
+    "name": "guild.roleCount",
+    "description": "Gets a total count of all the roles in the guild.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.roleCount}",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "name": "guild.shard",
+    "description": "Gets the guild's shard ID. I can't think of any circumstance where you would need this.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{guild.shard}",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "name": "if",
+    "description": "Compares values. Uses conditional parsing, so \"yes\" will be sent and \"no\" will not in {if;true;===;true;{user.send;yes};{user.send;no}}.\n\nAvailable operators are `==`, `!=`, `>=`, `>`, `<=`, `<`, `!==`, `===`, `startswith`, `endswith`, `includes`. \nAdding '!' before an operator will invert the output.",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "...",
+        "description": "will be sent and \"no\" will not in {if;true;===;true;{user.",
+        "spread": true,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{if;false;yay}",
+        "output": "yay"
+      },
+      {
+        "input": "{if;condition;yay;nay}",
+        "output": "yay"
+      },
+      {
+        "input": "{if;cond;===;cond;yay}",
+        "output": "yay"
+      },
+      {
+        "input": "{if;cond;!==;cond;yay}",
+        "output": ""
+      },
+      {
+        "input": "{if;true;===;true;yay;nay}",
+        "output": "yay"
+      },
+      {
+        "input": "{if;test;!includes;no;true}",
+        "output": "true"
+      }
+    ]
+  },
+  {
+    "name": "l",
+    "description": "A left bracket. Use this if the parser keeps eating brackets you want to be shown.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [],
+    "examples": [
+      {
+        "input": "{l}",
+        "output": "{"
+      },
+      {
+        "input": "{set;key;Whats up {l} gamer} {get;key}",
+        "output": "Whats up { gamer"
+      }
+    ]
+  },
+  {
+    "name": "length",
+    "description": "Gets the length of \"input\".",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "input",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{length;wew}",
+        "output": "3"
+      },
+      {
+        "input": "{length;}",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "name": "lower",
+    "description": "Converts the input to lowercase.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "input",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{lower;NOW THIS IS EPIC}",
+        "output": "now this is epic"
+      }
+    ]
+  },
+  {
+    "name": "math",
+    "description": "Evaluates a math expression.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "expression",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{math;9+10}",
+        "output": "21"
+      }
+    ]
+  },
+  {
+    "name": "message.attachment",
+    "description": "Gets a message attachment.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "index",
+        "defaultValue": "1",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.attachment}",
+        "output": ""
+      }
+    ]
+  },
+  {
+    "name": "message.authorID",
+    "description": "Gets the message author's ID.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.authorID}",
+        "output": "111372124383428608"
+      }
+    ]
+  },
+  {
+    "name": "message.channelID",
+    "description": "Gets the channel ID the message was sent to.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.channelID}",
+        "output": "473962909765206016"
+      }
+    ]
+  },
+  {
+    "name": "message.cleanContent",
+    "description": "Gets the clean message content.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.cleanContent}",
+        "output": "An example message, mention: @Sylver, regular emoji: 😄 guild emoji: <a:safetyjim:418855513116246016>"
+      }
+    ]
+  },
+  {
+    "name": "message.content",
+    "description": "Gets the raw message content.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.content}",
+        "output": "An example message, mention: <@111372124383428608>, regular emoji: 😄 guild emoji: <a:safetyjim:418855513116246016>"
+      }
+    ]
+  },
+  {
+    "name": "message.delete",
+    "description": "Deletes the message.",
+    "aliases": [
+      "delete"
+    ],
+    "dependencies": [
+      "msg",
+      "guild",
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.delete}",
+        "output": ""
+      }
+    ]
+  },
+  {
+    "name": "message.hasEmbed",
+    "description": "Returns true if the message has an embed, false in any other circumstance.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.hasEmbed}",
+        "output": "false"
+      }
+    ]
+  },
+  {
+    "name": "message.id",
+    "description": "Gets the message ID.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.id}",
+        "output": "521710205201809408"
+      }
+    ]
+  },
+  {
+    "name": "message.label",
+    "description": "If the message called a command, this is the command name. Will not work for messages that are fetched via \"message id\"",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.label}",
+        "output": "test"
+      }
+    ]
+  },
+  {
+    "name": "message.mentions",
+    "description": "Returns all message mentions in a message by ID. This includes user, role and channel mentions.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.mentions}",
+        "output": "111372124383428608 532902669220839426",
+        "note": "In this case, the message content would be something like \"@Sylver#1048 #general\""
+      }
+    ]
+  },
+  {
+    "name": "message.pinned",
+    "description": "Returns a boolean indicating whether the message is pinned or not.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.pinned}",
+        "output": "false"
+      }
+    ]
+  },
+  {
+    "name": "message.react",
+    "description": "Reacts to the message in context with [emoji]. ",
+    "aliases": [],
+    "dependencies": [
+      "guild",
+      "msg",
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "emoji",
+        "description": "The emoji to operate on. Can be an ID, name, markdown emoji or search query.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.react;eggplant}",
+        "output": "",
+        "note": "The message in context would have the eggplant emoji added to it."
+      },
+      {
+        "input": "{message.react;🍆}",
+        "output": "",
+        "note": "The message in context would have the eggplant emoji added to it."
+      }
+    ]
+  },
+  {
+    "name": "message.timestamp",
+    "description": "Returns the time the message was sent. \"exact\" is a boolean indicating whether to include hours/minutes.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours/minutes.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.timestamp}",
+        "output": "Nov 4, 2015"
+      },
+      {
+        "input": "{message.timestamp;true}",
+        "output": "Nov 4, 2015, 7:53 AM"
+      }
+    ]
+  },
+  {
+    "name": "message.tts",
+    "description": "Returns a boolean indicating whether the message uses text-to-speech or not.",
+    "aliases": [],
+    "dependencies": [
+      "msg"
+    ],
+    "args": [
+      {
+        "name": "message id",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "message channel",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{message.tts}",
+        "output": "false",
+        "note": "thank god"
+      }
+    ]
+  },
+  {
+    "name": "note",
+    "description": "Outputs nothing. You should use this for adding comments to your code. Child tags are not executed.",
+    "conditionalParsing": true,
+    "aliases": [
+      "//"
+    ],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "...",
+        "spread": true,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{note;This code does something very important}",
+        "output": ""
+      },
+      {
+        "input": "{note;{user.send;Hello}}",
+        "output": "",
+        "note": "The user would not receive the message because child tags are not executed."
+      }
+    ]
+  },
+  {
+    "name": "or",
+    "description": "Returns the first argument that exist and is not empty. Cannot be used with {if}. Uses conditional parsing.",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "...",
+        "spread": true,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{or;; ;test}",
+        "output": "test"
+      },
+      {
+        "input": "{or;first;second}",
+        "output": "first"
+      }
+    ]
+  },
+  {
+    "name": "perget",
+    "description": "Gets a key from persistent storage.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "key",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{perset;key;value} {perget;key}",
+        "output": "value"
+      },
+      {
+        "input": "{perget;non-existent-key}",
+        "output": "",
+        "note": "Unset keys return nothing."
+      }
+    ]
+  },
+  {
+    "name": "perset",
+    "description": "\nSets a key to a value in persistent storage. \nIf \"value\" is empty, the key is deleted.\n\nUnless you need absolutely must persist data between action invocations, you should use {set} and {get}.\n\nTags are retrieved when the action starts and are only persisted once an action finishes executing. That means that if you have an action that triggers\nand runs for 5 seconds and in that time updates a key, and during that time the same action triggers again and writes to the same key as the previous action, \nthe action that finishes last will overwrite the value the action before it set. This can have serious effects with things like an economy action that writes to\nusers balances.\n",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "key",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "value",
+        "description": "empty, the key is deleted.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{perset;my-key;value}",
+        "output": "",
+        "note": "This tag outputs nothing on success."
+      },
+      {
+        "input": "{perset;my-key;value} {perget;my-key}",
+        "output": "value"
+      },
+      {
+        "input": "{perset;my-key} {perget;my-key}",
+        "output": "",
+        "note": "With no value the key is deleted."
+      }
+    ]
+  },
+  {
+    "name": "r",
+    "description": "A right bracket. Use this if the parser keeps eating brackets you want to be shown.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [],
+    "examples": [
+      {
+        "input": "{r}",
+        "output": "}"
+      },
+      {
+        "input": "{set;key;Whats up {r} gamer} {get;key}",
+        "output": "Whats up } gamer"
+      }
+    ]
+  },
+  {
+    "name": "randstr",
+    "description": "Creates a random string of \"length\" from characters in \"characters\".",
+    "aliases": [],
+    "dependencies": [],
+    "args": [],
+    "examples": [
+      {
+        "input": "{randstr}",
+        "output": "AuB9N4"
+      },
+      {
+        "input": "{randstr;abc;2}",
+        "output": "ac"
+      }
+    ]
+  },
+  {
+    "name": "range",
+    "description": "Gets a random number between the minimum and maximum values. If the maximum is unset, the minimum will become the maximum and the minimum will be set to \"1\".",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "minimum",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "maximum",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{range;5;10}",
+        "output": "7"
+      },
+      {
+        "input": "{range;0;100}",
+        "output": "69"
+      },
+      {
+        "input": "{range;5}",
+        "output": "0",
+        "note": "With no maximum, the minimum becomes the maximum - this is equivalent to {range;0;5}."
+      }
+    ]
+  },
+  {
+    "name": "replace",
+    "description": "Replaces anything matching the pattern in the target with the replacement.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "target",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "pattern",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "replacement",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{replace;kittens are the best;kittens;puppies}",
+        "output": "puppies are the best"
+      },
+      {
+        "input": "{replace;Kittens are the best;kittens;puppies}",
+        "output": "puppies are the best",
+        "note": "This tag is case-insensitive."
+      },
+      {
+        "input": "{replace;An example phrase;([A-z]+);($1)}",
+        "output": "(an) (example) (phrase)",
+        "note": "This example is advanced and uses regex. It surrounds words matched by `[A-z]+` with `(` and `)`."
+      }
+    ]
+  },
+  {
+    "name": "role.color",
+    "description": "Gets the hex code of a role. If \"hex\" is false, the color will be in base 10 and may be empty if the role has no color.",
+    "aliases": [
+      "role.colour"
+    ],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "hex",
+        "defaultValue": "true]",
+        "description": "false, the color will be in base 10 and may be empty if the role has no color.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.color;humans}",
+        "output": "#F38A8D"
+      },
+      {
+        "input": "{role.color;humans;false}",
+        "output": "15960717"
+      },
+      {
+        "input": "{role.color;@everyone}",
+        "output": "#B9BBBE"
+      }
+    ]
+  },
+  {
+    "name": "role.createdAt",
+    "description": "Returns the date the role was created. \"exact\" is a boolean indicating whether to include hours and minutes.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours and minutes.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.createdAt;Developer}",
+        "output": "Jul 28, 2017"
+      },
+      {
+        "input": "{role.createdAt;Developer;true}",
+        "output": "Jul 28, 2017, 7:57 PM"
+      }
+    ]
+  },
+  {
+    "name": "role.hoist",
+    "description": "Returns a boolean indicating whether the role is set to display members separately from online members.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.hoist;Developer}",
+        "output": "true"
+      },
+      {
+        "input": "{role.hoist;Atlas}",
+        "output": "false"
+      }
+    ]
+  },
+  {
+    "name": "role.id",
+    "description": "Gets the ID of a role.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.id;Developer}",
+        "output": "340583469149192204"
+      }
+    ]
+  },
+  {
+    "name": "role.managed",
+    "description": "Returns a boolean indicating whether the role is managed by a third party connection.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.managed;Developer}",
+        "output": "false"
+      },
+      {
+        "input": "{role.managed;Atlas}",
+        "output": "true"
+      }
+    ]
+  },
+  {
+    "name": "role.memberCount",
+    "description": "Gets the amount of members in a role. **This can be wildly inaccurate for larger (>250 member) servers.**",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.memberCount;Developer}",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "name": "role.mention",
+    "description": "Returns the role @mention.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.mention;Developer}",
+        "output": "@Developer"
+      }
+    ]
+  },
+  {
+    "name": "role.mentionable",
+    "description": "Returns a boolean indicating whether the role can be mentioned.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.mentionable;Developer}",
+        "output": "false"
+      }
+    ]
+  },
+  {
+    "name": "role.name",
+    "description": "Gets the name of a role.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.name;tes}",
+        "output": "test",
+        "note": "This assumes the role name is \"test\" and the input is incomplete."
+      },
+      {
+        "input": "{role.name;340583469149192204}",
+        "output": "Developer",
+        "note": "This assumes the ID \"340583469149192204\" is for the \"Developer\" role."
+      }
+    ]
+  },
+  {
+    "name": "role.position",
+    "description": "Gets the position of a role.",
+    "aliases": [],
+    "dependencies": [
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{role.position;Developer}",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "name": "semi",
+    "description": "A semi-colon. Use this if the parser keeps eating your semi-colon.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [],
+    "examples": [
+      {
+        "input": "{semi}",
+        "output": ";"
+      },
+      {
+        "input": "{set;key;Whats up{semi} gamer} {get;key}",
+        "output": "Whats up; gamer"
+      }
+    ]
+  },
+  {
+    "name": "set",
+    "description": "Sets a key to a value in volatile storage. If \"value\" is empty, the key is deleted.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "key",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "value",
+        "description": "empty, the key is deleted.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{set;my-key;value}",
+        "output": "",
+        "note": "This tag outputs nothing on success."
+      },
+      {
+        "input": "{set;my-key;value} {get;my-key}",
+        "output": "value"
+      },
+      {
+        "input": "{set;my-key} {get;my-key}",
+        "output": "",
+        "note": "With no value the key is deleted."
+      }
+    ]
+  },
+  {
+    "name": "settings",
+    "description": "Gets a raw setting value. This is an advanced tag, if you don't understand how to use it or what it does, then you probably shouldn't be using it.",
+    "aliases": [],
+    "dependencies": [
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "key",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{settings;prefix}",
+        "output": "a!"
+      },
+      {
+        "input": "{settings;plugins.moderation.state}",
+        "output": "enabled"
+      }
+    ]
+  },
+  {
+    "name": "sleep",
+    "description": "Temporarily holds up processing. Tags before it will run normally, tags after it will have to wait. Aside from very specific circumstances, you should never use this tag. ",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "duration",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{channel.send;before the sleep} {sleep;10} {channel.send;yay im back}",
+        "output": "before the sleep\n...\nyay im back",
+        "note": "\"before the sleep\" would be sent first, then 10 seconds later \"yay im back\" would follow. "
+      }
+    ]
+  },
+  {
+    "name": "suggestion.approver",
+    "description": "Gets the ID of the suggestions approver, if one is in context.",
+    "aliases": [],
+    "dependencies": [
+      "suggestion"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{suggestion.approver}",
+        "output": "111372124383428608"
+      },
+      {
+        "input": "{user.mention;{suggestion.approver}}",
+        "output": "@Sylver#1058"
+      }
+    ]
+  },
+  {
+    "name": "suggestion.author",
+    "description": "Gets the ID of the suggestions author, if one is in context.",
+    "aliases": [],
+    "dependencies": [
+      "suggestion"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{suggestion.author}",
+        "output": "111372124383428608"
+      },
+      {
+        "input": "{user.mention;{suggestion.author}}",
+        "output": "@Sylver#1058"
+      }
+    ]
+  },
+  {
+    "name": "suggestion.content",
+    "description": "Gets the content or \"suggestion\" of a suggestion.",
+    "aliases": [],
+    "dependencies": [
+      "suggestion"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{suggestion.content}",
+        "output": "hey i think it would be really cool if you added roblox integration"
+      }
+    ]
+  },
+  {
+    "name": "throw",
+    "description": "Throws an error with a custom message. Useful for testing or if you want better error handling in your actions.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "message",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{throw;Something bad happened}",
+        "output": "{throw-ERROR1-something-bad-happened}",
+        "note": "You can handle the error properly with {catch}."
+      }
+    ]
+  },
+  {
+    "name": "ticket.author",
+    "description": "Gets the ID of the ticket's author, if one is in context.",
+    "aliases": [],
+    "dependencies": [
+      "ticket"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{ticket.author}",
+        "output": "111372124383428608"
+      },
+      {
+        "input": "{user.mention;{ticket.author}}",
+        "output": "@Sylver#1058"
+      }
+    ]
+  },
+  {
+    "name": "ticket.channel",
+    "description": "Gets the ID of the ticket's channel, if one is in context.",
+    "aliases": [],
+    "dependencies": [
+      "ticket"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{ticket.channel}",
+        "output": "544275146001743872"
+      }
+    ]
+  },
+  {
+    "name": "ticket.reason",
+    "description": "Gets the reason of the ticket, if one is in context.",
+    "aliases": [],
+    "dependencies": [
+      "ticket"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{ticket.reason}",
+        "output": "Hi my name jef i really need help finding better memes thank u"
+      }
+    ]
+  },
+  {
+    "name": "upper",
+    "description": "Converts the input to uppercase.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "input",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{upper;test}",
+        "output": "TEST"
+      },
+      {
+        "input": "{upper}",
+        "output": ""
+      }
+    ]
+  },
+  {
+    "name": "user.addrole",
+    "description": "Gives a user a role.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.addrole;human}",
+        "output": "",
+        "note": "This tag outputs nothing on success."
+      },
+      {
+        "input": "{user.addrole;Humans;Sylver}",
+        "output": "",
+        "note": "This would add the \"Humans\" role to the user \"Sylver\"."
+      }
+    ]
+  },
+  {
+    "name": "user.avatarURL",
+    "description": "The avatar URL of the user.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.avatarURL}",
+        "output": "https://cdn.discordapp.com/avatars/111372124383428608/a_db60101ca8c6b08e7e1d1ffb23fe0326.gif?size=128"
+      }
+    ]
+  },
+  {
+    "name": "user.bot",
+    "description": "Checks whether a user is a bot. Returns a boolean.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.bot}",
+        "output": "false",
+        "note": "Assumes the user in context is not a bot. "
+      },
+      {
+        "input": "{user.bot;Atlas}",
+        "output": "true",
+        "note": "Assumes the user in context is a bot. "
+      }
+    ]
+  },
+  {
+    "name": "user.color",
+    "description": "Gets the user's color, based on their highest role. If <hex=true>, the output will be in hex (#ffffff).",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "hex",
+        "defaultValue": "true",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.color}",
+        "output": "#95a5a6"
+      },
+      {
+        "input": "{user.color;true}",
+        "output": "9807270"
+      },
+      {
+        "input": "{user.color;true;Atlas}",
+        "output": "#03a9f4"
+      }
+    ]
+  },
+  {
+    "name": "user.createdAt",
+    "description": "Returns the date the users account was created. \"exact\" is a boolean indicating whether to include hours and minutes.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours and minutes.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.createdAt}",
+        "output": "Nov 4, 2015"
+      },
+      {
+        "input": "{user.createdAt;true}",
+        "output": "Nov 4, 2015, 7:53 AM"
+      }
+    ]
+  },
+  {
+    "name": "user.discriminator",
+    "description": "Gets a users discriminator.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.discriminator}",
+        "output": "1058",
+        "note": "The users tag in this case would be \"Username#1058\""
+      }
+    ]
+  },
+  {
+    "name": "user.id",
+    "description": "Gets a users id, otherwise known as snowflake.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.id}",
+        "output": "111372124383428608"
+      }
+    ]
+  },
+  {
+    "name": "user.infractions",
+    "description": "Gets the number of infractions a user has.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.infractions}",
+        "output": "0"
+      },
+      {
+        "input": "{user.infractions;93767954709094400}",
+        "output": "0"
+      },
+      {
+        "input": "{user.infractions;sylver}",
+        "output": "69"
+      }
+    ]
+  },
+  {
+    "name": "user.joinedAt",
+    "description": "Returns the date the user joined the server at. \"exact\" is a boolean indicating whether to include hours and minutes.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "exact",
+        "description": "a boolean indicating whether to include hours and minutes.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.joinedAt}",
+        "output": "Jul 28, 2017"
+      },
+      {
+        "input": "{user.joinedAt;true}",
+        "output": "Jul 28, 2017, 7:56 PM"
+      }
+    ]
+  },
+  {
+    "name": "user.level",
+    "description": "Gets the users level.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.level}",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "name": "user.levelXP",
+    "description": "Gets the user's XP count.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.levelXP}",
+        "output": "54"
+      },
+      {
+        "input": "{user.levelXP}",
+        "output": "1348"
+      }
+    ]
+  },
+  {
+    "name": "user.mention",
+    "description": "Mention a @user.",
+    "aliases": [
+      "user"
+    ],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.mention}",
+        "output": "@Sylver#1058"
+      }
+    ]
+  },
+  {
+    "name": "user.nextLevel",
+    "description": "Gets the user's next level.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.nextLevel}",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "name": "user.nextLevelXP",
+    "description": "Gets the user's next level's xp required to level up to it.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.nextLevelXP}",
+        "output": "155"
+      }
+    ]
+  },
+  {
+    "name": "user.nickname",
+    "description": "The nickname of the user. ",
+    "aliases": [
+      "user.nick"
+    ],
+    "dependencies": [
+      "user",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.nickname}",
+        "output": "sylver"
+      }
+    ]
+  },
+  {
+    "name": "user.random",
+    "description": "Gets the ID of a random user. This can be very inaccurate in large (>250 member) servers.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [],
+    "examples": [
+      {
+        "input": "{user.random}",
+        "output": "111372124383428608"
+      },
+      {
+        "input": "I pick you, {user.tag;{user.random}}!",
+        "output": "I pick you, Sylver#1058!"
+      }
+    ]
+  },
+  {
+    "name": "user.remainingXP",
+    "description": "Gets the remaining XP until the user levels up.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.remainingXP}",
+        "output": "1"
+      },
+      {
+        "input": "{user.remainingXP}",
+        "output": "2016"
+      }
+    ]
+  },
+  {
+    "name": "user.removerole",
+    "description": "Removes a role from the user.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "role",
+        "description": "The role to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.removerole;human}",
+        "output": "",
+        "note": "This tag outputs nothing on success."
+      },
+      {
+        "input": "{user.removerole;Humans;Sylver}",
+        "output": "",
+        "note": "This would remove the \"Humans\" role from the user \"Sylver\"."
+      }
+    ]
+  },
+  {
+    "name": "user.roles",
+    "description": "Returns a list of the members roles.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "settings"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.roles}",
+        "output": "340583469149192204 442989971020840960"
+      }
+    ]
+  },
+  {
+    "name": "user.send",
+    "description": "Direct-messages a user a message. If the user does not allow direct-messages from guild members, this will throw an error.",
+    "conditionalParsing": true,
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "channel"
+    ],
+    "args": [
+      {
+        "name": "message",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "returnId",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.send;Hello :)}",
+        "output": "",
+        "note": "This tag does not output anything on success if [returnId] is not true."
+      },
+      {
+        "input": "{user.send;Bye;{user.id};true}",
+        "output": "851450376993636362",
+        "note": "Returns the ID of the message sent."
+      },
+      {
+        "input": "{user.send;Hello :)}",
+        "output": "{user.send-ERROR1}",
+        "note": "This tag will throw an error if the user's direct-messages are not open."
+      }
+    ]
+  },
+  {
+    "name": "user.tag",
+    "description": "Gets a users tag.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.tag}",
+        "output": "Sylver#1058"
+      }
+    ]
+  },
+  {
+    "name": "user.username",
+    "description": "The username of the user. You may prefer {user.nickname}, which will use the users nickname and fall back to their username if the user has no nickname.",
+    "aliases": [],
+    "dependencies": [
+      "user",
+      "guild"
+    ],
+    "args": [
+      {
+        "name": "user",
+        "description": "The user to operate on. Can be an ID, name, mention or search query.",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{user.username}",
+        "output": "Sylver"
+      }
+    ]
+  },
+  {
+    "name": "utils.calcLevel",
+    "description": "Gets a level from an XP count.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "xp",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.calcLevel;1337}",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "name": "utils.calcLevelXP",
+    "description": "Gets the amount of XP required for a level.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "level",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.calcLevelXP;1337}",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "name": "utils.calcNextLevel",
+    "description": "Gets the users next level from their XP.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "xp",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.calcNextLevel;1337}",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "name": "utils.calcNextLevelXP",
+    "description": "Calculates the XP the next level requires, where \"level\" is the amount of XP the user has.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "level",
+        "description": "the amount of XP the user has.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.calcNextLevelXP;1337}",
+        "output": "1380"
+      }
+    ]
+  },
+  {
+    "name": "utils.calcRemainingXP",
+    "description": "Calculates the remaining XP to level up, where \"xp\" is the amount of XP the user has.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "xp",
+        "description": "the amount of XP the user has.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.calcRemainingXP;1337}",
+        "output": "462"
+      }
+    ]
+  },
+  {
+    "name": "utils.capitalize",
+    "description": "Capitalizes the first letter of a string.",
+    "aliases": [
+      "capitalise"
+    ],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "string",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.capitalize;very cool}",
+        "output": "Very Cool"
+      }
+    ]
+  },
+  {
+    "name": "utils.includes",
+    "description": "Returns a boolean indicating whether \"target\" contains \"term\".",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "target",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "term",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.includes;a string;string}",
+        "output": "true"
+      },
+      {
+        "input": "{utils.includes;AN UPPERCASE STRING;uppercase}",
+        "output": "true"
+      },
+      {
+        "input": "{utils.includes;;}",
+        "output": "false",
+        "note": "If either of \"target\" or \"term\" are missing, the tag will return false."
+      }
+    ]
+  },
+  {
+    "name": "utils.isSnowflake",
+    "description": "Check if \"input\" is a valid Discord snowflake.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "input",
+        "description": "a valid Discord snowflake.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.isSnowflake;111372124383428608}",
+        "output": "true"
+      },
+      {
+        "input": "{utils.isSnowflake;awd}",
+        "output": "false"
+      },
+      {
+        "input": "{utils.isSnowflake;}",
+        "output": "false"
+      },
+      {
+        "input": "{utils.isSnowflake;{user.id}}",
+        "output": "true"
+      }
+    ]
+  },
+  {
+    "name": "utils.isUrl",
+    "description": "Returns a boolean indicating whether \"url\" is a valid URL.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "url",
+        "description": "a valid URL.",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.isUrl;https://atlas.bot}",
+        "output": "true"
+      },
+      {
+        "input": "{utils.isUrl;example.com}",
+        "output": "true"
+      },
+      {
+        "input": "{utils.isUrl;hahaepic}",
+        "output": "false"
+      },
+      {
+        "input": "{utils.isUrl;}",
+        "output": "false"
+      },
+      {
+        "input": "{utils.isUrl;protocol://example.com}",
+        "output": "false"
+      }
+    ]
+  },
+  {
+    "name": "utils.parseTime",
+    "description": "Parses a \"human\" time (e.g, \"in 2h\", \"2h3m\") to a timestamp compatible with {utils.time}. This essentially just throws the mute/reminder parser at it.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "time",
+        "spread": false,
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.parseTime;1h}",
+        "output": "2021-08-21T04:41:01.950Z"
+      },
+      {
+        "input": "{utils.time;{utils.parseTime;1h}}",
+        "output": "Aug 21, 2021"
+      },
+      {
+        "input": "{utils.time;{utils.parseTime;1629520892435}}",
+        "output": "Aug 21, 2021",
+        "note": "Supports unix-style (second) and javascript-style (millisecond) timestamps."
+      }
+    ]
+  },
+  {
+    "name": "utils.prettyMs",
+    "description": "Formats milliseconds to a human-readable format. If verbose is true, it will use long names instead of short names, like \"minutes\" instead of \"m\".",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "milliseconds",
+        "spread": false,
+        "required": true
+      },
+      {
+        "name": "verbose",
+        "defaultValue": "true",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.prettyMs;133769}",
+        "output": "2 minutes 13 seconds"
+      },
+      {
+        "input": "{utils.prettyMs;133769;false}",
+        "output": "2m 13s"
+      }
+    ]
+  },
+  {
+    "name": "utils.time",
+    "description": "Formats the time to a human-readable format. If no time is provided, it defaults to the current date.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "exact",
+        "defaultValue": "true",
+        "spread": false,
+        "required": false
+      },
+      {
+        "name": "time",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.time}",
+        "output": "Dec 10, 2018, 4:08 PM"
+      },
+      {
+        "input": "{utils.time;true;Mon, 10 Dec 2018 16:06:14 GMT}",
+        "output": "Dec 10, 2018, 4:06 PM"
+      },
+      {
+        "input": "{utils.time;false}",
+        "output": "Dec 10, 2018"
+      },
+      {
+        "input": "{utils.time;true;10d}",
+        "output": "Dec 10, 2018, 4:06 PM"
+      }
+    ]
+  },
+  {
+    "name": "utils.timestamp",
+    "description": "Gets the timestamp of a provided date or the current date if none is provided.",
+    "aliases": [],
+    "dependencies": [],
+    "args": [
+      {
+        "name": "date",
+        "spread": false,
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "input": "{utils.timestamp}",
+        "output": "1623052829130"
+      },
+      {
+        "input": "{utils.timestamp;{user.createdAt}}",
+        "output": "1592517600000"
+      }
+    ]
+  }
+]

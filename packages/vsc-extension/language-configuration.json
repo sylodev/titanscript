@@ -1,0 +1,9 @@
+{
+  "comments": {
+    "blockComment": ["{note;", "}"]
+  },
+  "brackets": [["{", "}"]],
+  "autoCloseBefore": "{;",
+  "autoClosingPairs": [["{", "}"]],
+  "surroundingPairs": [["{", "}"]]
+}

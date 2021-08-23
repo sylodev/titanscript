@@ -1,0 +1,62 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "scopeName": "source.titanscript",
+  "fileTypes": [
+    "titanscript"
+  ],
+  "patterns": [
+    {
+      "include": "#expression"
+    }
+  ],
+  "repository": {
+    "expression": {
+      "patterns": [
+        {
+          "include": "#comment"
+        },
+        {
+          "include": "#tag"
+        }
+      ]
+    },
+    "comment": {
+      "begin": "{note",
+      "end": "}",
+      "name": "comment.block",
+      "patterns": [
+        {
+          "begin": "{",
+          "end": "}"
+        }
+      ]
+    },
+    "tag": {
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.operator"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.operator"
+        }
+      },
+      "patterns": [
+        {
+          "include": "$self"
+        },
+        {
+          "match": "(?<=\\{)[\\w\\.]+",
+          "name": "support.function"
+        },
+        {
+          "match": ";",
+          "name": "keyword.operator"
+        }
+      ]
+    }
+  }
+}

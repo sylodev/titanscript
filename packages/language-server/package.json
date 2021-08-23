@@ -1,0 +1,15 @@
+{
+    "name": "@sylo-digital/titanscript-language-server",
+    "version": "1.0.0",
+    "repository": "https://github.com/sylo-digital/titanscript.git",
+    "author": "Ryan <ryan@sylver.me>",
+    "license": "GPL-3.0",
+    "engines": {
+        "node": "*"
+    },
+    "dependencies": {
+        "@sylo-digital/titanscript-parser": "workspace:^1.0.0",
+        "vscode-languageserver": "^7.0.0",
+        "vscode-languageserver-textdocument": "^1.0.1"
+    }
+}

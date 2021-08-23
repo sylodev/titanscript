@@ -1,0 +1,47 @@
+{
+    "name": "@sylo-digital/titanscript-vsc-extension",
+    "version": "1.0.0",
+    "repository": "https://github.com/sylo-digital/titanscript.git",
+    "author": "Ryan <ryan@sylver.me>",
+    "license": "GPL-3.0",
+    "main": "dist/extension.js",
+    "activationEvents": [
+        "onLanguage:titanscript"
+    ],
+    "scripts": {
+        "build": "tsc --build"
+    },
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "titanscript",
+                "extensions": [
+                    ".titanscript"
+                ],
+                "aliases": [
+                    "TitanScript"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "titanscript",
+                "scopeName": "source.titanscript",
+                "path": "./syntaxes/titanscript.tmGrammar.json"
+            }
+        ]
+    },
+    "dependencies": {
+        "@sylo-digital/titanscript-parser": "workspace:^1.0.0",
+        "vscode-languageclient": "^7.0.0",
+        "vscode-languageserver-protocol": "^3.16.0"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.52.0",
+        "@vscode/test-electron": "^1.6.1"
+    }
+}
