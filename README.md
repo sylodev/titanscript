@@ -16,5 +16,8 @@ Tag metadata is exported from the bot and is updated here whenever I feel like i
 
 - [ ] Testing
 - [ ] Script formatter
+- [ ] Support for `{a!command}` tags
 - [ ] `vsc-extension:` Auto-completing `{user.random}` or any tag with no arguments with an existing closing bracket doubles the closing brackets, so it becomes `{user.random}}`. [video](https://sylver.is-fucking.gay/f/LZjXeu)
 - [ ] `vsc-extension:` Auto-complete doesn't play nice if you are right of a dot. [video](https://i.sylver.me/f/xrJAlr.gif)
+- [ ] `vsc-extension:` Hover provider data is usually for the wrong tag unless you hover over the end of the tag.
+- [ ] `vsc-extension`: `Ctrl + /` will add spaces around the content which fucks it up when you uncomment and is generally ugly. [image](https://sylver.likes-to.party/f/sLbaJY)

@@ -32,29 +32,51 @@
       ]
     },
     "tag": {
-      "begin": "\\{",
+      "name": "meta.tag",
+      "begin": "{",
       "beginCaptures": {
         "0": {
-          "name": "keyword.operator"
+          "name": "meta.tag.open"
         }
       },
-      "end": "\\}",
+      "end": "}",
       "endCaptures": {
         "0": {
-          "name": "keyword.operator"
+          "name": "meta.tag.close"
         }
       },
       "patterns": [
         {
-          "include": "$self"
-        },
-        {
-          "match": "(?<=\\{)[\\w\\.]+",
-          "name": "support.function"
+          "include": "$self",
+          "comment": "nested tags"
         },
         {
           "match": ";",
-          "name": "keyword.operator"
+          "comment": "tag separators",
+          "name": "meta.tag.separator"
+        },
+        {
+          "match": "(?<={(?:get|set|perget|perset);)[^;}]+",
+          "comment": "get, set, perget, perset keys",
+          "name": "variable"
+        },
+        {
+          "match": "(?<=;)(true|false)",
+          "name": "constant.language"
+        },
+        {
+          "match": "(?<=;)[0-9]+",
+          "name": "constant.numeric"
+        },
+        {
+          "match": "(?<={)[\\w\\.]+",
+          "comment": "tag names",
+          "name": "entity.name.function"
+        },
+        {
+          "match": "[0-9]{17,20}",
+          "comment": "snowflake parameters",
+          "name": "constant.numeric"
         }
       ]
     }

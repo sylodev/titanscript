@@ -54,8 +54,7 @@ export class Lexer {
 
   /**
    * Go down in the tree.
-   * @param {NodeType} type The type of node to create when moving down.
-   * @private
+   * @param type The type of node to create when moving down.
    */
   protected down(type: NodeType) {
     const node = this.createNode(type);
@@ -66,7 +65,7 @@ export class Lexer {
 
   /**
    * Go up in the tree.
-   * @private
+   * @throws if there is no parent
    */
   protected up() {
     if (!this.current.parent) throw new TypeError("Cannot move to non-existent parent node");
@@ -75,8 +74,7 @@ export class Lexer {
 
   /**
    * Find a parent node with the given type. Returns undefined if none exist.
-   * @param {NodeType} type The type of node to look for
-   * @private
+   * @param type The type of node to look for
    */
   protected findParent(type: NodeType) {
     let curr = this.current;
@@ -90,8 +88,6 @@ export class Lexer {
 
   /**
    * Create a new node.
-   * @param {*} type The type of the node
-   * @private
    */
   protected createNode(type: NodeType): Node {
     return {

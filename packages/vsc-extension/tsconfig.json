@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "exclude": ["./node_modules", "./dist"],
-  "include": ["./src"],
+  "include": ["./src", "../parser/src/helpers/format-parameter.helper.ts"],
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",

@@ -1,49 +1,20 @@
-import { Chars, Tag, tags, getTagByName } from "@sylo-digital/titanscript-parser";
+import { Chars, getTagByName, tags } from "@sylo-digital/titanscript-parser";
 import * as path from "path";
 import {
   CancellationToken,
   CompletionContext,
   CompletionItem,
   CompletionItemKind,
-  Diagnostic,
   ExtensionContext,
   languages,
-  MarkdownString,
   Position,
   TextDocument,
 } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from "vscode-languageclient/node";
+import { formatTag } from "./helpers/format-tag.helper";
+import { getTagDocumentation } from "./helpers/get-tag-documentation.helper";
 
 let client: LanguageClient;
-
-function getTagDocumentation(tag: Tag): MarkdownString {
-  const documentation = new MarkdownString();
-  documentation.appendMarkdown(tag.description + "\n\n");
-  if (tag.conditionalParsing) documentation.appendMarkdown(`\nUses conditional parsing.`);
-  if (tag.aliases[0]) documentation.appendMarkdown(`\nAliases are \`${tag.aliases.join("`, `")}\``);
-  if (tag.dependencies[0]) {
-    documentation.appendMarkdown(`\nRequires \`${tag.dependencies.join("`, `")}\` to be in context.`);
-  }
-
-  for (const example of tag.examples) {
-    const output = example.output ? `{note;${example.output}}` : "";
-    documentation.appendCodeblock(`${example.input} ${output}`, "titanscript");
-  }
-
-  return documentation;
-}
-
-function formatParameters(tag: Tag) {
-  return tag.args.map((arg) => {
-    const wrap = arg.required ? ["<", ">"] : ["[", "]"];
-    return `${wrap[0]}${arg.name}${wrap[1]}`;
-  });
-}
-
-function formatTag(tag: Tag) {
-  const parameters = formatParameters(tag).join(" ");
-  return `${tag.name} ${parameters}`;
-}
 
 export function activate(context: ExtensionContext) {
   languages.registerHoverProvider("titanscript", {
