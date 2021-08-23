@@ -1,4 +1,4 @@
-import { getNodeDepth, getTagFromNode, Lexer, Node, NodeType } from "@sylo-digital/titanscript-parser";
+import { getTagFromNode, Lexer, Node, NodeType } from "@sylo-digital/titanscript-parser";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import {
   createConnection,
