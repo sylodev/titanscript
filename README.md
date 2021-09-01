@@ -31,7 +31,7 @@ TitanScript is the name of the scripting language Atlas uses primarily for Actio
     </td>
     <td>
         <figure>
-            <img src="https://i.atlas.bot/f/H7Xxiv.png" />
+            <img src="https://sylver.is-dumb-as.rocks/f/s9SQdL.png" />
             <figcaption>Unknown tag errors</figcaption>
         </figure>
     </td>
