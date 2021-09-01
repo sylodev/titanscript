@@ -2,7 +2,15 @@
   "comments": {
     "blockComment": ["{note;", "}"]
   },
-  "brackets": [["{", "}"]],
-  "autoClosingPairs": [["{", "}"]],
-  "surroundingPairs": [["{", "}"]]
+  "brackets": [
+    ["{", "}"] // tags
+  ],
+  "autoClosingPairs": [
+    ["{", "}"], // tag brackets
+    ["[", "]"], // convenience
+    ["(", ")"] // convenience
+  ],
+  "surroundingPairs": [
+    ["{", "}"] // tags
+  ]
 }

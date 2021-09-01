@@ -1,10 +1,43 @@
 # titanscript
 
-> *the packages in this repository are incomplete and have a load of bugs that still have to be ironed out.*
+> _the packages in this repository are incomplete and have a load of bugs that still have to be ironed out._
 
-> *the vscode extension is yet to be published.*
+> _the vscode extension is yet to be published._
 
-TitanScript is the name of the scripting language Atlas uses primarily for Actions. This monorepo contains useful tools and programs for working with it. 
+TitanScript is the name of the scripting language Atlas uses primarily for Actions. This monorepo contains useful tools and programs for working with it.
+
+<table>
+  <tr>
+    <td>
+        <figure>
+            <img src="https://i.atlas.bot/f/6PyXTv.png" />
+            <figcaption>Syntax Highlighting</figcaption>
+        </figure>
+    </td>
+    <td>
+        <figure>
+            <img src="https://shrek-is.life/f/qbewVz.png" />
+            <figcaption>Hover Provider</figcaption>
+        </figure>
+    </td>
+   </tr> 
+  </tr>
+  <tr>
+    <td>
+        <figure>
+            <img src="https://sylver.hates-this.place/f/IpNjJd.png" />
+            <figcaption>Auto-completion</figcaption>
+        </figure>
+    </td>
+    <td>
+        <figure>
+            <img src="https://i.atlas.bot/f/H7Xxiv.png" />
+            <figcaption>Unknown tag errors</figcaption>
+        </figure>
+    </td>
+   </tr>
+  </tr>
+</table>
 
 # notes
 
@@ -17,7 +50,7 @@ Tag metadata is exported from the bot and is updated here whenever I feel like i
 - [ ] Testing
 - [ ] Script formatter
 - [ ] Support for `{a!command}` tags
-- [ ] `vsc-extension:` Auto-completing `{user.random}` or any tag with no arguments with an existing closing bracket doubles the closing brackets, so it becomes `{user.random}}`. [video](https://sylver.is-fucking.gay/f/LZjXeu)
-- [ ] `vsc-extension:` Auto-complete doesn't play nice if you are right of a dot. [video](https://i.sylver.me/f/xrJAlr.gif)
-- [ ] `vsc-extension:` Hover provider data is usually for the wrong tag unless you hover over the end of the tag.
+- [ ] `vsc-extension`: Auto-completing `{user.random}` or any tag with no arguments with an existing closing bracket doubles the closing brackets, so it becomes `{user.random}}`. [video](https://sylver.is-fucking.gay/f/LZjXeu)
+- [ ] `vsc-extension`: Auto-complete doesn't play nice if you are right of a dot. [video](https://i.sylver.me/f/xrJAlr.gif)
 - [ ] `vsc-extension`: `Ctrl + /` will add spaces around the content which fucks it up when you uncomment and is generally ugly. [image](https://sylver.likes-to.party/f/sLbaJY)
+- [ ] `vsc-extension`: Support renaming variables like `{set}` with "Rename Symbol".

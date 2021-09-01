@@ -24,7 +24,6 @@ export class TitanScriptCompletionItemProvider implements CompletionItemProvider
           : CompletionItemKind.Variable;
 
         const item = new CompletionItem({ label: tag.name }, kind);
-
         item.detail = formatTag(tag);
         item.documentation = getTagDocumentation(tag);
         const closeChar = tag.args[0] ? Chars.Separator : Chars.TagClose;
