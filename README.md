@@ -54,3 +54,4 @@ Tag metadata is exported from the bot and is updated here whenever I feel like i
 - [ ] `vsc-extension`: Auto-complete doesn't play nice if you are right of a dot. [video](https://i.sylver.me/f/xrJAlr.gif)
 - [ ] `vsc-extension`: `Ctrl + /` will add spaces around the content which fucks it up when you uncomment and is generally ugly. [image](https://sylver.likes-to.party/f/sLbaJY)
 - [ ] `vsc-extension`: Support renaming variables like `{set}` with "Rename Symbol".
+- [ ] Markdown syntax highlighting is not recursive. `\*\*\`test\`\*\*` should work.

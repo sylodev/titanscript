@@ -17,6 +17,67 @@
         },
         {
           "include": "#tag"
+        },
+        {
+          "include": "#markdown"
+        }
+      ]
+    },
+    "markdown": {
+      "patterns": [
+        {
+          "comment": "bold",
+          "match": "(?<!\\\\)\\*\\*.*\\*\\*",
+          "name": "markup.bold"
+        },
+        {
+          "comment": "italic",
+          "match": "(?<!\\\\)\\*.*?\\*",
+          "name": "markup.italic"
+        },
+        {
+          "comment": "code",
+          "begin": "(?<!`|\\\\)`(?=[^`])",
+          "end": "`",
+          "name": "markup.inline.raw.string.markdown"
+        },
+        {
+          "comment": "strikethrough",
+          "match": "(?<!\\\\)~~.*~~",
+          "name": "markup.other.strikethrough.markdown"
+        },
+        {
+          "comment": "underline",
+          "match": "(?<!\\\\)__.*__",
+          "name": "markup.underline"
+        },
+        {
+          "comment": "quotes",
+          "match": "^> ",
+          "name": "punctuation.definition.quote.begin.markdown"
+        },
+        {
+          "comment": "mentions",
+          "match": "<(@!?|#|@&)?[0-9]{17,21}>",
+          "name": "markup.bold"
+        },
+        {
+          "comment": "codeblock",
+          "begin": "(?<!\\\\)(```)(\\w+)\n",
+          "beginCaptures": {
+            "1": {
+              "name": "markup.bold"
+            },
+            "2": {
+              "name": "markup.italic"
+            }
+          },
+          "end": "```",
+          "endCaptures": {
+            "0": {
+              "name": "markup.bold"
+            }
+          }
         }
       ]
     },
@@ -26,6 +87,7 @@
       "name": "comment.block",
       "patterns": [
         {
+          "comment": "match child tags or else we close the note at the closure of a child tag",
           "begin": "{",
           "end": "}"
         }
@@ -47,39 +109,42 @@
       },
       "patterns": [
         {
-          "include": "$self",
-          "comment": "nested tags"
+          "comment": "nested tags",
+          "include": "$self"
         },
         {
-          "match": ";",
           "comment": "tag separators",
+          "match": ";",
           "name": "meta.tag.separator"
         },
         {
-          "match": "(?<={(?:get|set|perget|perset);)[^;}]+",
           "comment": "get, set, perget, perset keys",
-          "name": "variable"
+          "match": "(?<={(?:get|set|perget|perset);)[^;}]+",
+          "name": "variable.name"
         },
         {
+          "comment": "tag parameters that are regex - it's too difficult to match just {find} and {replace}",
           "match": "(?<=;)\/[^\/]+\/[gimus]+?(?=;|})",
           "name": "string.regexp"
         },
         {
+          "comment": "tag parameters that are booleans",
           "match": "(?<=;)(true|false)",
           "name": "constant.language"
         },
         {
+          "comment": "tag parameters that are numbers",
           "match": "(?<=;)[0-9]+",
           "name": "constant.numeric"
         },
         {
-          "match": "(?<={)[\\w\\.]+",
           "comment": "tag names",
+          "match": "(?<={)[\\w\\.]+",
           "name": "entity.name.function"
         },
         {
-          "match": "[0-9]{17,20}",
           "comment": "snowflake parameters",
+          "match": "[0-9]{17,20}",
           "name": "constant.numeric"
         }
       ]
